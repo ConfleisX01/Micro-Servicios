@@ -1,10 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
-import Navigation from './components/Nav/Navigation';
+import Services from './pages/ServiciosEscolares/admin';
+import { useState } from 'react';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState(0) // Identacion de las paginas
+
   return (
-    <Navigation></Navigation>
+    <>
+      {currentPage == 0 ? <Services></Services> : null}
+    </>
   );
 }
 
