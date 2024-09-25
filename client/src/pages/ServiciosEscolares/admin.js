@@ -10,7 +10,6 @@ export default function Services() {
 
     return (
         <div>
-            {/* Barra de navegación fija */}
             <Navigation>
                 {links.map((link, index) => (
                     <Nav.Link
@@ -23,7 +22,6 @@ export default function Services() {
                 ))}
             </Navigation>
 
-            {/* Contenedor dinámico para las secciones */}
             <div>
                 <Outlet />
             </div>

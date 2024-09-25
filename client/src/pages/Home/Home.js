@@ -14,7 +14,7 @@ export default function Home() {
                     <Nav className='mb-auto'>
                         <Nav.Link>Resultados</Nav.Link>
                         <Nav.Link>Registros</Nav.Link>
-                        <Nav.Link>Inicio de sesión</Nav.Link>
+                        <Nav.Link href='/login'>Inicio de sesión</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
