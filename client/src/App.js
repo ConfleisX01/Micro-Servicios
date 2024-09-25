@@ -6,6 +6,7 @@ import Inscripcion from './pages/ServiciosEscolares/inscripcion';
 import Resultados from './pages/ServiciosEscolares/resultados';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
+import CatalogoBecas from './pages/ServiciosEscolares/catalogoBecas';
 
 function App() {
   return (
@@ -21,8 +22,9 @@ function App() {
         </Route>
         <Route path='/login' element={<Login />}>
           <Route path='/servicios-escolares' element={<Services />}>
-            <Route path="periodos_inscripcion" element={<Inscripcion />} />
-            <Route path="resultados" element={<Resultados />} />
+            <Route path="/periodos_inscripcion" element={<Inscripcion />} />
+            <Route path="/resultados" element={<Resultados />} />
+            <Route path='/catalogo_becas' element={<CatalogoBecas />} />
           </Route>
           <Route path='/recursos_humanos'>
 
