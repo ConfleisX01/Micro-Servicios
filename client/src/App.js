@@ -20,19 +20,19 @@ function App() {
           </Route>
         </Route>
         <Route path='/login' element={<Login />}>
-          <Route path='/servicios-escolares' element={<Services />}>
-            <Route path="periodos_inscripcion" element={<Inscripcion />} />
-            <Route path="resultados" element={<Resultados />} />
-          </Route>
-          <Route path='/recursos_humanos'>
+        </Route>
+        <Route path='/servicios-escolares' element={<Services />}>
+          <Route path="periodos_inscripcion" element={<Inscripcion />} />
+          <Route path="resultados" element={<Resultados />} />
+        </Route>
+        <Route path='/recursos_humanos'>
 
-          </Route>
-          <Route path='/alumnos'>
+        </Route>
+        <Route path='/alumnos'>
 
-          </Route>
-          <Route path='/profesores'>
+        </Route>
+        <Route path='/profesores'>
 
-          </Route>
         </Route>
       </Routes>
     </Router>
