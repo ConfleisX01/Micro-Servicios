@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { periodsLoader } from './pages/ServiciosEscolares/inscripcion';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -44,6 +46,7 @@ function App() {
       children: [
         {
           path: '/servicios_escolares/periodos_inscripcion',
+          loader: periodsLoader,
           element: <Inscripcion />
         },
         {
