@@ -16,6 +16,7 @@ import Welcome from './pages/Home/Welcome';
 import RegistroAspirantes from './pages/ServiciosEscolares/RegistroAspirantes';
 import ResultadosAdminisions from './pages/Home/ResultadosAdmision';
 import ResultadosAdminision from './pages/Home/ResultadosAdmision';
+import FormularioRegistro from './pages/ServiciosEscolares/FormularioRegistro';
 
 function App() {
   const router = createBrowserRouter([
@@ -37,7 +38,13 @@ function App() {
         },
         {
           path: '/registro_aspirantes',
-          element: <RegistroAspirantes />
+          element: <RegistroAspirantes />,
+          children: [
+            {
+              path: 'formulario_registro/:id_periodo',
+              element: <FormularioRegistro />
+            }
+          ]
         }
       ]
     },
