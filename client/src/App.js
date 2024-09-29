@@ -13,6 +13,8 @@ import Login from './pages/Login/Login';
 import Welcome from './pages/Home/Welcome';
 import RegistroAspirantes from './pages/ServiciosEscolares/RegistroAspirantes';
 import CatalagoBecas from './pages/ServiciosEscolares/catalagoBecas';
+import RegistroBecas from './pages/Alumnos/alumnos';
+import ServicesAlumnos from './pages/Alumnos/adminAlumnos';
 
 function App() {
 
@@ -64,6 +66,18 @@ function App() {
           path: '/servicios_escolares/validacion_becas',
         },
       ]
+    },
+    {
+      path: '/alumnos',
+      element: <ServicesAlumnos />,
+      children:
+        [
+          {
+            path: '/alumnos/regsitro_becas',
+            element: <RegistroBecas />
+          }
+
+        ]
     }
   ])
 
