@@ -3,16 +3,14 @@ import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Table from "react-bootstrap/Table"
 
-import { useLoaderData } from 'react-router-dom';
-
 import axios, { Axios } from 'axios'
 
 export default function Inscripcion() {
-    const periodData = useLoaderData()
-
     const [periodName, setPeriodName] = useState('')
     const [periodDesc, setPeriodDesc] = useState('')
     const [periodStatus, setPeriodStatus] = useState(false)
+
+    const [periodData, setPeriodData] = useState([])
 
     const data = {
         periodName: periodName,

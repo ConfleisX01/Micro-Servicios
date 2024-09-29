@@ -16,7 +16,7 @@ export default function Home() {
                         <Navbar.Toggle aria-controls='basic-navbar-nav' />
                         <Navbar.Collapse id='basic-navbar-nav'>
                             <Nav className='mb-auto'>
-                                <Nav.Link>Resultados</Nav.Link>
+                                <Nav.Link href='/resultados_admision'>Resultados</Nav.Link>
                                 <Nav.Link href='/registro_aspirantes'>Registros de nuevos aspirantes</Nav.Link>
                                 <Nav.Link href='/login'>Inicio de sesión</Nav.Link>
                             </Nav>

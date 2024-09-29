@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { periodsLoader } from './pages/ServiciosEscolares/inscripcion';
+import { useEffect } from 'react';
 
 import {
   createBrowserRouter,
@@ -9,14 +9,15 @@ import {
 
 import Services from './pages/ServiciosEscolares/admin';
 import Inscripcion from './pages/ServiciosEscolares/inscripcion';
-import Resultados from './pages/ServiciosEscolares/resultados';
+import Resultados from './pages/ServiciosEscolares/validacionResultados';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Welcome from './pages/Home/Welcome';
 import RegistroAspirantes from './pages/ServiciosEscolares/RegistroAspirantes';
+import ResultadosAdminisions from './pages/Home/ResultadosAdmision';
+import ResultadosAdminision from './pages/Home/ResultadosAdmision';
 
 function App() {
-
   const router = createBrowserRouter([
     {
       path: '/',
@@ -32,7 +33,7 @@ function App() {
         },
         {
           path: '/resultados_admision',
-          element: <Resultados />
+          element: <ResultadosAdminision />
         },
         {
           path: '/registro_aspirantes',
@@ -46,11 +47,11 @@ function App() {
       children: [
         {
           path: '/servicios_escolares/periodos_inscripcion',
-          loader: periodsLoader,
           element: <Inscripcion />
         },
         {
           path: '/servicios_escolares/validacion_resultados',
+          element: <Resultados />
         },
         {
           path: '/servicios_escolares/catalogo_carreras',
