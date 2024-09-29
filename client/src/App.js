@@ -12,6 +12,7 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Welcome from './pages/Home/Welcome';
 import RegistroAspirantes from './pages/ServiciosEscolares/RegistroAspirantes';
+import CatalagoBecas from './pages/ServiciosEscolares/catalagoBecas';
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
         },
         {
           path: '/servicios_escolares/catalogo_becas',
+          element: <CatalagoBecas />
         },
         {
           path: '/servicios_escolares/validacion_becas',
