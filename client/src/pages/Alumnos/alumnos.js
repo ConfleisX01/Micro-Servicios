@@ -117,6 +117,7 @@ export default function RegistroBecas() {
                                 <th>Folio</th>
                                 <th>Beca</th>
                                 <th>Estatus</th>
+                                <th>Comentarios</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -129,12 +130,13 @@ export default function RegistroBecas() {
                                             <Button variant="warning" disabled>Pendiente de aprobacion</Button>
                                         )}
                                         {info.estatus === 2 && ( // Estatus aprobada
-                                            <Button variant="success" disabled>Aceptada</Button>
+                                            <Button variant="success" disabled>Beca aceptada</Button>
                                         )}
                                         {info.estatus === 3 && ( // Estatus rechazada
                                             <Button variant="secondary" disabled>Solicitud Rechazada</Button>
                                         )}
                                     </td>
+                                    <td>{info.comentarios}</td>
                                 </tr>
                             ))}
                         </tbody>

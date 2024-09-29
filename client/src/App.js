@@ -15,6 +15,7 @@ import RegistroAspirantes from './pages/ServiciosEscolares/RegistroAspirantes';
 import CatalagoBecas from './pages/ServiciosEscolares/catalagoBecas';
 import RegistroBecas from './pages/Alumnos/alumnos';
 import ServicesAlumnos from './pages/Alumnos/adminAlumnos';
+import ValidacionBecas from './pages/ServiciosEscolares/validacionBecas';
 
 function App() {
 
@@ -64,6 +65,7 @@ function App() {
         },
         {
           path: '/servicios_escolares/validacion_becas',
+          element: <ValidacionBecas />
         },
       ]
     },
