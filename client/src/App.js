@@ -14,6 +14,10 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Welcome from './pages/Home/Welcome';
 import RegistroAspirantes from './pages/ServiciosEscolares/RegistroAspirantes';
+import ServiciosEscolares from './pages/Personal/serviciosEscolares';
+import RecursosHumanos from './pages/Personal/recursosHumanos';
+import Profesores from './pages/Personal/profesores';
+import Informatica from './pages/Personal/informatica';
 import ResultadosAdminisions from './pages/Home/ResultadosAdmision';
 import ResultadosAdminision from './pages/Home/ResultadosAdmision';
 import FormularioRegistro from './pages/ServiciosEscolares/FormularioRegistro';
@@ -71,6 +75,27 @@ function App() {
         },
         {
           path: '/servicios_escolares/validacion_becas',
+        },
+      ]
+    },
+    {
+      path: '/personal',
+      children: [
+        {
+          path: '/personal/profesores',
+          element: <Profesores />
+        },
+        {
+          path: '/personal/servicios_escolares',
+          element: <ServiciosEscolares />
+        },
+        {
+          path: '/personal/informatica',
+          element:<Informatica />
+        },
+        {
+          path: '/personal/recursos_humanos',
+          element:<RecursosHumanos />
         },
       ]
     }
