@@ -1,18 +1,21 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert'
 import { Link, Outlet } from 'react-router-dom';
 
 export default function RegistroAspirantes() {
     const [periods, setPeriods] = useState([])
+    const [serverError, setServerError] = useState(false)
 
     const getAllPeriods = () => {
         axios.get('http://localhost:3001/servicios_escolares/listPeriods')
             .then(function (response) {
-                setPeriods(response.data)
+                if (response.data !== 'undefined') setPeriods(response.data)
             })
             .catch(function (error) {
-                console.log(error)
+                console.error(error)
+                setServerError(true)
             })
     }
 
@@ -25,22 +28,27 @@ export default function RegistroAspirantes() {
             <div className="container-fluid">
                 <p className='fw-bold'>Registro de nuevos aspirantes</p>
             </div>
+            <div className='container-fluid'>
+                {serverError ? <Alert variant='danger'><span className='fw-bold'>Error al obtener los periodos: </span>Error de servidor</Alert> : null}
+            </div>
             <div className='container-fluid row'>
                 <div className='col-md-6'>
                     {
-                        periods.map((period, index) => {
-                            return (
-                                period.estatus ?
-                                    <PeriodCard
-                                        key={index}
-                                        nombrePeriodo={period.nombre_periodo}
-                                        descripcionPeriodo={period.descripcion}
-                                        estatus={period.estatus}
-                                        id_periodo={period.id_periodo}
-                                    /> :
-                                    null
-                            )
-                        })
+                        periods.length > 0 ?
+                            periods.map((period, index) => {
+                                return (
+                                    period.estatus ?
+                                        <PeriodCard
+                                            key={index}
+                                            nombrePeriodo={period.nombre_periodo}
+                                            descripcionPeriodo={period.descripcion}
+                                            estatus={period.estatus}
+                                            id_periodo={period.id_periodo}
+                                        /> :
+                                        null
+                                )
+                            }) :
+                            null
                     }
                 </div>
                 <div className='col-md-6'>

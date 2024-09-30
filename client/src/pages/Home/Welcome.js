@@ -16,13 +16,13 @@ export default function Welcome() {
                         image={"https://img.freepik.com/foto-gratis/estudiantes-desconcertados-biblioteca_23-2147678902.jpg?t=st=1727648177~exp=1727651777~hmac=98569786143091252892cd0c855943826ab6a5065754748ada2a0b77e6200b90&w=1380"}
                         title={"Inicio de sesion"}
                         text={"Ingresar al sistema para el personal de la escuela"}
-                        link={"/resultados_admision"}
+                        link={"/login"}
                     />
                     <CardInfo
                         image={"https://img.freepik.com/foto-gratis/nina-sonriente-biblioteca_23-2147678806.jpg?t=st=1727648275~exp=1727651875~hmac=e381527b3a5fd2eba8f72f08dc621cd4687e6154a41c03baae4f31676103a46d&w=1380"}
                         title={"Registro de nuevos aspirantes"}
                         text={"Ver los periodos para el registro de nuevos aspirantes"}
-                        link={"/resultados_admision"}
+                        link={"/registro_aspirantes"}
                     />
                 </div>
             </div>

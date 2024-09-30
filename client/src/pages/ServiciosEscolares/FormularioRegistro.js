@@ -22,7 +22,8 @@ export default function FormularioRegistro() {
         applicantNumber: applicantNumber,
         applicantUser: applicantUser,
         applicantCurp: applicantCurp,
-        applicantCareer: applicantCareer
+        applicantCareer: applicantCareer,
+        applicantPeriod: periodData.id_periodo
     }
 
     const saveApplicant = () => {

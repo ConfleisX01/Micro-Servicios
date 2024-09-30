@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Table from "react-bootstrap/Table"
 
+import Swal from "sweetalert2"
+
 import axios, { Axios } from 'axios'
 
 export default function Inscripcion() {
@@ -12,21 +14,76 @@ export default function Inscripcion() {
 
     const [periodData, setPeriodData] = useState([])
 
+    useEffect(() => {
+        getPeriodsList()
+    }, [])
+
     const data = {
         periodName: periodName,
         periodDesc: periodDesc,
         periodStatus: periodStatus
     }
 
+    const getPeriodsList = () => {
+        axios.get('http://localhost:3001/servicios_escolares/listPeriods')
+            .then(function (response) {
+                setPeriodData(response.data)
+            })
+            .catch(function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Error al obtener los periodos registrados",
+                    text: "Intentelo nuevamente mas tarde",
+                    showCloseButton: true
+                })
+            })
+    }
+
+    const closePeriod = (idPeriod) => {
+        const data = {
+            idPeriod: idPeriod
+        }
+
+        axios.post('http://localhost:3001/servicios_escolares/closePeriod', data)
+            .then(function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: "Periodo cerrado con exito",
+                    showCloseButton: true,
+                    footer: response.status
+                })
+                getPeriodsList()
+            })
+            .catch(function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Error al cerrar el periodo deseado",
+                    text: "Intentelo nuevamente mas tarde",
+                    showCloseButton: true
+                })
+            })
+    }
+
     const savePeriod = () => {
-        axios.post('http://localhost:3001/insertPeriod', {
+        axios.post('http://localhost:3001/servicios_escolares/insertPeriod', {
             data
         })
             .then(function (response) {
-                console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: "Registro creado con exito",
+                    showCloseButton: true,
+                    footer: response.status
+                })
+                getPeriodsList()
             })
             .catch(function (error) {
-                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: "Error al crear el nuevo periodo",
+                    text: "Intentelo nuevamente mas tarde",
+                    showCloseButton: true
+                })
             })
     }
 
@@ -78,8 +135,9 @@ export default function Inscripcion() {
                                             <td>{period.nombre_periodo}</td>
                                             <td>{period.descripcion}</td>
                                             <td>{period.estatus ? "Periodo Abierto" : "Periodo Cerrado"}</td>
-                                            <td>{period.estatus ? <button className="btn btn-danger">Cerrar Periodo</button> :
-                                                <button className="btn btn-outline-dark disabled">Periodo Cerrado</button>}</td>
+                                            <td>{period.estatus ? <button className="btn btn-danger"
+                                                onClick={() => closePeriod(period.id_periodo)}>Cerrar Periodo</button> :
+                                                <button className="btn btn-outline-dark disabled">Sin acciones</button>}</td>
                                         </tr>
                                     )
                                 })
@@ -90,14 +148,4 @@ export default function Inscripcion() {
             </div>
         </div>
     )
-}
-
-export const periodsLoader = async () => {
-    try {
-        const response = await axios.get('http://localhost:3001/get');
-        console.log(response.data)
-        return response.data
-    } catch (error) {
-        console.log(error)
-    }
 }

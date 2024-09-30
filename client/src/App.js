@@ -18,7 +18,6 @@ import ServiciosEscolares from './pages/Personal/serviciosEscolares';
 import RecursosHumanos from './pages/Personal/recursosHumanos';
 import Profesores from './pages/Personal/profesores';
 import Informatica from './pages/Personal/informatica';
-import ResultadosAdminisions from './pages/Home/ResultadosAdmision';
 import ResultadosAdminision from './pages/Home/ResultadosAdmision';
 import FormularioRegistro from './pages/ServiciosEscolares/FormularioRegistro';
 

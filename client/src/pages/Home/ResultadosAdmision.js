@@ -1,37 +1,57 @@
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
 
 export default function ResultadosAdminision() {
-    const data = [
-        { nombre: "Juan", estatus: false },
-        { nombre: "Robe", estatus: true },
-        { nombre: "Trokers", estatus: false }
-    ]
+    const [applicantList, setApplicantList] = useState([])
 
-    const mostrarInformacion = (index) => {
-        const aspirante = data[index]
-        alert(aspirante.estatus ? "Fuiste acpetado. Felicidades!!!" : "Intentalo la proxima convocatoria")
+    const getApplicantsList = () => {
+        axios.get('http://localhost:3001/servicios_escolares/getApplicants')
+            .then(function (response) {
+                setApplicantList(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
+
+    useEffect(() => {
+        getApplicantsList()
+    }, [])
 
     return (
         <>
+            <div>
+                <h2>Resultados de admision</h2>
+            </div>
             <Table>
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Telefono</th>
+                        <th>Periodo</th>
+                        <th>Carrera Deseada</th>
                         <th>Estatus</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        data.map((aspirante, index) => {
+                        applicantList.map((aspirante, index) => {
                             return (
                                 <tr>
-                                    <td>{aspirante.nombre}</td>
-                                    <td>{aspirante.estatus ? "Fuiste Aceptado" : "Fuiste Rechazado"}</td>
-                                    <td><button className='btn btn-outline-info' onClick={
-                                        () => mostrarInformacion(index)
-                                    }>Informacion</button></td>
+                                    <td>{aspirante.nombre_aspirante}</td>
+                                    <td>{aspirante.telefono_aspirante}</td>
+                                    <td>{aspirante.nombre_periodo}</td>
+                                    <td>{aspirante.carrera_aspirante}</td>
+                                    <td>{
+                                        aspirante.estatus_aspirante === 'A' ? (
+                                            <p className='fw-bold text-success'>Aspirante Aceptado</p>
+                                        ) : aspirante.estatus_aspirante === 'R' ? (
+                                            <p className='fw-bold text-danger'>Aspirante Rechazado</p>
+                                        ) : (
+                                            null
+                                        )
+                                    }</td>
                                 </tr>
                             )
                         })

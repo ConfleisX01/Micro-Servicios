@@ -10,7 +10,7 @@ export default function Home() {
             <div className='container-fluid p-0'>
                 <Navbar expand='lg' className='border shadow-sm'>
                     <Container>
-                        <Navbar.Brand>
+                        <Navbar.Brand href='/'>
                             SNCM
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls='basic-navbar-nav' />
