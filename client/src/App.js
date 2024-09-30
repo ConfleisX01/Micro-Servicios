@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { useEffect } from 'react';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -7,7 +9,7 @@ import {
 
 import Services from './pages/ServiciosEscolares/admin';
 import Inscripcion from './pages/ServiciosEscolares/inscripcion';
-import Resultados from './pages/ServiciosEscolares/resultados';
+import Resultados from './pages/ServiciosEscolares/validacionResultados';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Welcome from './pages/Home/Welcome';
@@ -16,9 +18,15 @@ import ServiciosEscolares from './pages/Personal/serviciosEscolares';
 import RecursosHumanos from './pages/Personal/recursosHumanos';
 import Profesores from './pages/Personal/profesores';
 import Informatica from './pages/Personal/informatica';
+import ResultadosAdminision from './pages/Home/ResultadosAdmision';
+import FormularioRegistro from './pages/ServiciosEscolares/FormularioRegistro';
+import CatalagoBecas from './pages/ServiciosEscolares/catalagoBecas';
+import RegistroBecas from './pages/Alumnos/alumnos';
+import ServicesAlumnos from './pages/Alumnos/adminAlumnos';
+import ValidacionBecas from './pages/ServiciosEscolares/validacionBecas';
+import ResultadosBecas from './pages/ServiciosEscolares/resultadosBecas';
 
 function App() {
-
   const router = createBrowserRouter([
     {
       path: '/',
@@ -34,11 +42,21 @@ function App() {
         },
         {
           path: '/resultados_admision',
-          element: <Resultados />
+          element: <ResultadosAdminision />
         },
         {
           path: '/registro_aspirantes',
-          element: <RegistroAspirantes />
+          element: <RegistroAspirantes />,
+          children: [
+            {
+              path: 'formulario_registro/:id_periodo',
+              element: <FormularioRegistro />
+            }
+          ]
+        },
+        {
+          path: '/resultados_becas',
+          element: <ResultadosBecas />
         }
       ]
     },
@@ -52,6 +70,7 @@ function App() {
         },
         {
           path: '/servicios_escolares/validacion_resultados',
+          element: <Resultados />
         },
         {
           path: '/servicios_escolares/catalogo_carreras',
@@ -61,9 +80,11 @@ function App() {
         },
         {
           path: '/servicios_escolares/catalogo_becas',
+          element: <CatalagoBecas />
         },
         {
           path: '/servicios_escolares/validacion_becas',
+          element: <ValidacionBecas />
         },
       ]
     },
@@ -80,13 +101,25 @@ function App() {
         },
         {
           path: '/personal/informatica',
-          element:<Informatica />
+          element: <Informatica />
         },
         {
           path: '/personal/recursos_humanos',
-          element:<RecursosHumanos />
+          element: <RecursosHumanos />
         },
       ]
+    },
+    {
+      path: '/alumnos',
+      element: <ServicesAlumnos />,
+      children:
+        [
+          {
+            path: '/alumnos/regsitro_becas',
+            element: <RegistroBecas />
+          }
+
+        ]
     }
   ])
 

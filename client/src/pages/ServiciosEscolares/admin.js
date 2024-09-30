@@ -9,8 +9,8 @@ export default function Services() {
         { label: 'Catálogo de carreras', route: '/servicios_escolares/catalogo_carreras' },
         { label: 'Catálogo de registro de grupos', route: '/servicios_escolares/registro_grupos' },
         { label: 'Catálogo de becas', route: '/servicios_escolares/catalogo_becas' },
-        { label: 'Validación de becas', route: '/servicios_escolares/validacion_becas' }
-    ];
+        { label: 'Validación de becas', route: '/servicios_escolares/validacion_becas' }
+    ];
 
     return (
         <div>
