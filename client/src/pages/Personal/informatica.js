@@ -4,6 +4,7 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import logo from '../Personal/img/imgLogo.png';
+import icon_logout from '../Personal/img/icon_logout.png';
 import icon_ojo from '../Personal/img/icon_ojo.png';
 import icon_activar from '../Personal/img/icon_activar.png';
 import icon_opcion from '../Personal/img/icon_opcion.png';
@@ -139,6 +140,19 @@ export default function Profesores() {
         })
     }
 
+    const showSwalCerrarSesion = () => {
+        withReactContent(Swal).fire({
+            title: `¿Estas seguro de cerrar sesión?`,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Si",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/login'
+            }
+        })
+    }
+    
     const showSwalRealizado = () => {
         withReactContent(Swal).fire({
             position: "center",
@@ -291,6 +305,7 @@ export default function Profesores() {
                         <Nav.Link href='/personal/recursos_humanos' className='liNav'>Recusrsos Humanos</Nav.Link>
                         <Nav.Link href='/personal/servicios_escolares' className='liNav'>Servicios Escolares</Nav.Link>
                     </ul>
+                    <img onClick={showSwalCerrarSesion} src={icon_logout} alt="Logo" className="icon_logout" style={{width:'8%', height:'40%', marginLeft: '1em', marginRight:'1em'}}/>
                 </div>
             </nav>
             <div className="contenido">
