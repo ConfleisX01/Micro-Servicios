@@ -20,6 +20,11 @@ import Profesores from './pages/Personal/profesores';
 import Informatica from './pages/Personal/informatica';
 import ResultadosAdminision from './pages/Home/ResultadosAdmision';
 import FormularioRegistro from './pages/ServiciosEscolares/FormularioRegistro';
+import CatalagoBecas from './pages/ServiciosEscolares/catalagoBecas';
+import RegistroBecas from './pages/Alumnos/alumnos';
+import ServicesAlumnos from './pages/Alumnos/adminAlumnos';
+import ValidacionBecas from './pages/ServiciosEscolares/validacionBecas';
+import ResultadosBecas from './pages/ServiciosEscolares/resultadosBecas';
 
 function App() {
   const router = createBrowserRouter([
@@ -48,6 +53,11 @@ function App() {
               element: <FormularioRegistro />
             }
           ]
+          element: <RegistroAspirantes />
+        },
+        {
+          path: '/resultados_becas',
+          element: <ResultadosBecas />
         }
       ]
     },
@@ -71,9 +81,11 @@ function App() {
         },
         {
           path: '/servicios_escolares/catalogo_becas',
+          element: <CatalagoBecas />
         },
         {
           path: '/servicios_escolares/validacion_becas',
+          element: <ValidacionBecas />
         },
       ]
     },
@@ -90,13 +102,25 @@ function App() {
         },
         {
           path: '/personal/informatica',
-          element:<Informatica />
+          element: <Informatica />
         },
         {
           path: '/personal/recursos_humanos',
-          element:<RecursosHumanos />
+          element: <RecursosHumanos />
         },
       ]
+    },
+    {
+      path: '/alumnos',
+      element: <ServicesAlumnos />,
+      children:
+        [
+          {
+            path: '/alumnos/regsitro_becas',
+            element: <RegistroBecas />
+          }
+
+        ]
     }
   ])
 
