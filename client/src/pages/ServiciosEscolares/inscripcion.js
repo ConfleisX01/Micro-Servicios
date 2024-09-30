@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Table from "react-bootstrap/Table"
 
-import Swal from "sweetalert2"
+import Swal from 'sweetalert2'
 
 import axios, { Axios } from 'axios'
 
