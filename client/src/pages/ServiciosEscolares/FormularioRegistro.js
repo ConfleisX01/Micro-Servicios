@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button"
 import axios from "axios"
 
+import Swal from "sweetalert2"
+
 export default function FormularioRegistro() {
     const periodData = useParams()
     const [carres, setCarres] = useState([])
@@ -29,10 +31,20 @@ export default function FormularioRegistro() {
     const saveApplicant = () => {
         axios.post('http://localhost:3001/servicios_escolares/saveApplicant', data)
             .then(function (response) {
-                console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'El aspirante se registro con exito',
+                    footer: response.status,
+                    showCloseButton: true
+                })
             })
             .catch(function (error) {
-                console.log(error)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al registrar al aspirante',
+                    footer: error,
+                    showCloseButton: true
+                })
             })
     }
 

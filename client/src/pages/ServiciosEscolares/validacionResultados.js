@@ -36,7 +36,7 @@ export default function Resultados() {
             .then(function (response) {
                 Swal.fire({
                     icon: 'success',
-                    title: "El aspirante se rechazo con exito",
+                    title: "El aspirante se actualizo con exito",
                     footer: response.status,
                     showCloseButton: true
                 })
