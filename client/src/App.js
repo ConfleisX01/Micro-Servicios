@@ -53,7 +53,6 @@ function App() {
               element: <FormularioRegistro />
             }
           ]
-          element: <RegistroAspirantes />
         },
         {
           path: '/resultados_becas',
