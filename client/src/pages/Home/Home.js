@@ -10,13 +10,13 @@ export default function Home() {
             <div className='container-fluid p-0'>
                 <Navbar expand='lg' className='border shadow-sm'>
                     <Container>
-                        <Navbar.Brand>
+                        <Navbar.Brand href='/'>
                             SNCM
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls='basic-navbar-nav' />
                         <Navbar.Collapse id='basic-navbar-nav'>
                             <Nav className='mb-auto'>
-                                <Nav.Link>Resultados</Nav.Link>
+                                <Nav.Link href='/resultados_admision'>Resultados</Nav.Link>
                                 <Nav.Link href='/registro_aspirantes'>Registros de nuevos aspirantes</Nav.Link>
                                 <Nav.Link href='/login'>Inicio de sesión</Nav.Link>
                             </Nav>

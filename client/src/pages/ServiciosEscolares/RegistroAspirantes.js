@@ -1,60 +1,67 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert'
+import { Link, Outlet } from 'react-router-dom';
 
 export default function RegistroAspirantes() {
-    const periods = [
-        {
-            nombrePeriodo: 'Periodo Enero',
-            descripcionPeriodo: 'Descripcion del periodo 1',
-            estatus: true
-        },
-        {
-            nombrePeriodo: 'Periodo Febrero',
-            descripcionPeriodo: 'Descripcion del periodo 1',
-            estatus: true
-        },
-        {
-            nombrePeriodo: 'Periodo Marzo',
-            descripcionPeriodo: 'Descripcion del periodo 1',
-            estatus: true
-        },
-        {
-            nombrePeriodo: 'Periodo Abril',
-            descripcionPeriodo: 'Descripcion del periodo 1',
-            estatus: true
-        },
-        {
-            nombrePeriodo: 'Periodo Mayo',
-            descripcionPeriodo: 'Descripcion del periodo 1',
-            estatus: true
-        }
-    ]
+    const [periods, setPeriods] = useState([])
+    const [serverError, setServerError] = useState(false)
+
+    const getAllPeriods = () => {
+        axios.get('http://localhost:3001/servicios_escolares/listPeriods')
+            .then(function (response) {
+                if (response.data !== 'undefined') setPeriods(response.data)
+            })
+            .catch(function (error) {
+                console.error(error)
+                setServerError(true)
+            })
+    }
+
+    useEffect(() => {
+        getAllPeriods()
+    }, [])
 
     return (
         <>
             <div className="container-fluid">
-                <h2>Registro de aspirantes</h2>
+                <p className='fw-bold'>Registro de nuevos aspirantes</p>
             </div>
-            <div className='container-fluid d-flex'>
-                {
-                    periods.map((period, index) => {
-                        return (
-                            <PeriodCard
-                                key={index}
-                                nombrePeriodo={period.nombrePeriodo}
-                                descripcionPeriodo={period.descripcionPeriodo}
-                                estatus={period.estatus}
-                            />
-                        )
-                    })
-                }
+            <div className='container-fluid'>
+                {serverError ? <Alert variant='danger'><span className='fw-bold'>Error al obtener los periodos: </span>Error de servidor</Alert> : null}
+            </div>
+            <div className='container-fluid row'>
+                <div className='col-md-6'>
+                    {
+                        periods.length > 0 ?
+                            periods.map((period, index) => {
+                                return (
+                                    period.estatus ?
+                                        <PeriodCard
+                                            key={index}
+                                            nombrePeriodo={period.nombre_periodo}
+                                            descripcionPeriodo={period.descripcion}
+                                            estatus={period.estatus}
+                                            id_periodo={period.id_periodo}
+                                        /> :
+                                        null
+                                )
+                            }) :
+                            null
+                    }
+                </div>
+                <div className='col-md-6'>
+                    <Outlet />
+                </div>
             </div>
         </>
     )
 }
 
-function PeriodCard({ nombrePeriodo, descripcionPeriodo, estatus }) {
+function PeriodCard({ nombrePeriodo, descripcionPeriodo, estatus, id_periodo }) {
     return (
-        <Card className='m-2' style={{ width: '18rem', marginBottom: '1rem' }}>
+        <Card className='m-2 shadow-sm' style={{ width: 'auto', marginBottom: '1rem' }}>
             <Card.Body>
                 <Card.Title>{nombrePeriodo}</Card.Title>
                 <Card.Subtitle className='mb-2 text-muted'>
@@ -63,7 +70,7 @@ function PeriodCard({ nombrePeriodo, descripcionPeriodo, estatus }) {
                 <Card.Text>{descripcionPeriodo}</Card.Text>
             </Card.Body>
             <Card.Footer className='text-center'>
-                <button className='btn btn-info'>Registrarse en este periodo</button>
+                <Link to={`/registro_aspirantes/formulario_registro/${id_periodo}`}>Registrarse en este periodo</Link>
             </Card.Footer>
         </Card>
     );
