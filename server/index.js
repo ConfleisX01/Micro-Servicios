@@ -1,94 +1,125 @@
-const express = require('express')
-const mysql = require('mysql')
-const cors = require('cors')
+const express = require('express');
+const mysql = require('mysql2');
+const cors = require('cors');
 
-const app = express()
+// Crear la aplicación de Express
+const app = express();
+app.use(cors()); // Permitir solicitudes desde cualquier origen (útil para desarrollo)
+app.use(express.json()); // Para parsear solicitudes JSON
 
-app.use(cors())
-app.use(express.json())
-
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
+// Configurar la conexión a la base de datos
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
     password: 'root',
-    database: 'serviciosEscolares'
-})
+    database: 'mcbecas'
+});
 
-app.post('/servicios_escolares/insertPeriod', (req, res) => {
-    const periodName = req.body.data.periodName
-    const periodDesc = req.body.data.periodDesc
-    const periodStatus = req.body.data.periodStatus
+// Conectar a la base de datos
+db.connect((err) => {
+    if (err) {
+        console.error('Error connecting to the database:', err);
+        return;
+    }
+    console.log('Connected to the database');
+});
 
-    console.log(req.body)
-
-    connection.query('INSERT INTO periodos_inscripcion (nombre_periodo, descripcion, estatus) values (?, ?, ?)',
-        [periodName, periodDesc, periodStatus],
-        (err, result) => {
-            if (err) throw err
-            res.send(result)
+// Ruta para obtener las becas
+app.get('/api/becas', (req, res) => {
+    const query = 'SELECT id, nombre, descripcion, estatus FROM becas';
+    db.query(query, (err, results) => {
+        if (err) {
+            res.status(500).json({ error: 'Error fetching data from database' });
+        } else {
+            res.json(results); // Enviar los resultados como respuesta JSON
         }
-    )
-})
+    });
+});
 
-app.get('/servicios_escolares/listPeriods', (req, res) => {
-    connection.query('SELECT * FROM periodos_inscripcion',
-        (err, result) => {
-            if (err) throw err
-            res.send(result)
+// Ruta para obtener todas sol
+app.get('/api/info_becas', (req, res) => {
+    const query = 'SELECT * FROM solicitudes';
+    db.query(query, (err, results) => {
+        if (err) {
+            res.status(500).json({ error: 'Error fetching data from database' });
+        } else {
+            res.json(results); // Enviar los resultados como respuesta JSON
         }
-    )
-})
+    });
+});
 
-app.post('/servicios_escolares/closePeriod', (req, res) => {
-    const idPeriod = req.body.idPeriod
-    console.log(req.body)
-    connection.query('UPDATE periodos_inscripcion SET estatus = 0 WHERE id_periodo = ?', [idPeriod],
-        (err, result) => {
-            if (err) throw err
-            res.send(result)
+// Ruta para obtener las sol
+app.get('/api/info_becas/:idUser', (req, res) => {
+    const idUser = parseInt(req.params.idUser);
+
+    const query = 'SELECT * FROM solicitudes where id_usuario = ? ';
+    db.query(query, [idUser], (err, results) => {
+        if (err) {
+            res.status(500).json({ error: 'Error fetching data from database' });
+        } else {
+            res.json(results); // Enviar los resultados como respuesta JSON
         }
-    )
-})
+    });
+});
 
-app.post('/servicios_escolares/saveApplicant', (req, res) => {
-    const applicantName = req.body.applicantName
-    const applicantEmail = req.body.applicantEmail
-    const applicantNumber = req.body.applicantNumber
-    const applicantUser = req.body.applicantUser
-    const applicantCurp = req.body.applicantCurp
-    const applicantCareer = req.body.applicantCareer
-    const applicantPeriod = req.body.applicantPeriod
+app.put('/api/becas/:id', (req, res) => {
+    const becaId = parseInt(req.params.id);
+    const { estatus } = req.body
 
+    // Verificar que se envió el estatus correctamente
+    if (typeof estatus !== 'number') {
+        return res.status(400).json({ error: 'El estatus debe ser un número (0 o 1)' });
+    }
 
-    const query = 'INSERT INTO aspirantes_registrados (nombre_aspirante, correo_aspirante, telefono_aspirante, usuario_aspirante, curp_aspirante, carrera_aspirante, id_periodo) VALUES (?, ?, ?, ?, ?, ?, ?)'
+    const query = 'UPDATE becas SET estatus = ? WHERE id = ?';
 
-    connection.query(query, [applicantName, applicantEmail, applicantNumber, applicantUser, applicantCurp, applicantCareer, applicantPeriod],
-        (err, result) => {
-            if (err) throw err
-            res.send(result)
+    db.query(query, [estatus, becaId], (err, results) => {
+        if (err) {
+            res.status(500).json({ error: 'Error updating the database' });
+        } else if (results.affectedRows === 0) {
+            res.status(404).json({ error: 'No se encontró una beca con ese ID' });
+        } else {
+            res.json({ message: 'Beca actualizada con éxito' });
         }
-    )
-})
+    });
+});
 
-app.get('/servicios_escolares/getApplicants', (req, res) => {
-    connection.query('SELECT * FROM vista_aspirantes_periodos', (err, result) => {
-        if (err) throw err
-        res.send(result)
-    })
-})
+// Endpoint para registrar una nueva solicitud de beca
+app.post('/api/solicitud_becas', (req, res) => {
+    const { id_usuario, id_becas } = req.body;
 
-app.post('/servicios_escolares/updateApplicant', (req, res) => {
-    const applicantId = req.body.applicantId
-    const applicantStatus = req.body.applicantStatus
-
-    connection.query('UPDATE aspirantes_registrados SET estatus_aspirante = ? WHERE id_aspirante = ?', [applicantStatus, applicantId],
-        (err, response) => {
-            if (err) throw err
-            res.send(response)
+    const query = 'CALL solicitud_becas(?, ?)';
+    db.query(query, [id_usuario, id_becas], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
         }
-    )
-})
+        res.json({ message: 'Solicitud registrada', folio: results[0][0].folio }); // Ajusta esto según la estructura de la respuesta
+    });
+});
 
-app.listen(3001, () => {
-    console.log("El puerto se abrio en http://localhost:3001")
-})
+app.put('/api/validacion_becas', (req, res) => {
+    const { id_beca } = req.body;
+    const { estatus } = req.body;
+    const { comentarios } = req.body;
+
+    const query = 'UPDATE solicitudes_becas SET estatus = ?, comentarios = ? WHERE folio = ?';
+
+    db.query(query, [estatus,comentarios,id_beca], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'No se encontró una solicitud con ese ID' });
+        }
+
+        res.json({ message: 'Solicitud validada correctamente' });
+    });
+});
+
+
+// Iniciar el servidor
+const PORT = 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});

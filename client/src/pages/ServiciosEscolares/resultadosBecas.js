@@ -13,14 +13,14 @@ export default function ResultadosBecas() {
     // Función para obtener la información de becas
     const fetchInfoBecas = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/info_becas`);
+            const response = await axios.get(`https://mmmv979p-5000.usw3.devtunnels.ms/api/info_becas`);
             const becasAceptadas = response.data.filter(beca => beca.estatus === 2);
             setStatusBecas(becasAceptadas);
         } catch (error) {
             console.error("Error al obtener el estatus de las becas", error);
             setError("Error al cargar los resultados de las becas.");
         } finally {
-            setLoading(false);  // Dejar de mostrar el estado de carga
+            setLoading(false);
         }
     };
 
