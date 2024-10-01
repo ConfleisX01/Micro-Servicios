@@ -88,16 +88,24 @@ export default function Profesores() {
         })
     }
 
-    const getProfesores = () => {
-        axios.get('http://localhost:3001/empleado/getAllEmpleados')
-            .then(function (response) {
-                console.log(response);
-                setProfesores(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    const getProfesores = async () => {
+        try {
+            // Espera a que se resuelva la promesa de axios.get y guarda la respuesta en la variable response
+            const response = await axios.get('https://82465d5v-3001.usw3.devtunnels.ms/empleado/getAllEmpleados');
+
+            // Muestra la respuesta en la consola
+            console.log("Es esto bajao")
+            console.log(JSON.stringify(response));
+
+
+            // Actualiza el estado con los datos obtenidos
+            setProfesores(response.data);
+        } catch (error) {
+            // Muestra el error en caso de que la llamada falle
+            console.log(error);
+        }
     };
+
 
     const verDetallesProfesorActivo = () => {
         toggleModalOpcionesActivo();
@@ -186,7 +194,7 @@ export default function Profesores() {
             contratoEmpleado: contratoEmpleado
         };
 
-        axios.post('http://localhost:3001/empleado/insertEmpleado', {
+        axios.post('https://82465d5v-3001.usw3.devtunnels.ms/empleado/insertEmpleado', {
             data
         }).then(function (response) {
             limpiarFormulario();
@@ -214,7 +222,7 @@ export default function Profesores() {
             contratoEmpleado: contratoEmpleado
         };
 
-        axios.post('http://localhost:3001/empleado/updateEmpleado', {
+        axios.post('https://82465d5v-3001.usw3.devtunnels.ms/empleado/updateEmpleado', {
             data
         }).then(function (response) {
             limpiarFormulario();
@@ -228,7 +236,7 @@ export default function Profesores() {
     }
 
     const deleteProfesor = () => {
-        axios.post('http://localhost:3001/empleado/deleteEmpleado', {
+        axios.post('https://82465d5v-3001.usw3.devtunnels.ms/empleado/deleteEmpleado', {
             numeroEmpleado
         }).then(function (response) {
             showSwalRealizado();
@@ -242,7 +250,7 @@ export default function Profesores() {
 
     const activateProfesor = () => {
         console.log('entra');
-        axios.post('http://localhost:3001/empleado/activateEmpleado', {
+        axios.post('https://82465d5v-3001.usw3.devtunnels.ms/empleado/activateEmpleado', {
             numeroEmpleado
         }).then(function (response) {
             showSwalRealizado();
@@ -284,7 +292,11 @@ export default function Profesores() {
     };
 
     useEffect(() => {
-        getProfesores();
+        const obtenerProfesores = async () => {
+            await getProfesores();
+        };
+
+        obtenerProfesores();
         setNombreAreaEmpleado('P');
     }, []);
 
@@ -302,11 +314,11 @@ export default function Profesores() {
                 </div>
                 <div className="contenedorBarra b3">
                     <ul>
-                        <Nav.Link href='/personal/recursos_humanos'className='liNav'>Recusrsos Humanos</Nav.Link>
-                        <Nav.Link href='/personal/servicios_escolares'className='liNav'>Servicios Escolares</Nav.Link>
-                        <Nav.Link href='/personal/informatica'className='liNav'>Informática</Nav.Link>
-                    </ul> 
-                    <img onClick={showSwalCerrarSesion} src={icon_logout} alt="Logo" className="icon_logout" style={{width:'8%', height:'40%', marginLeft: '1em', marginRight:'1em'}}/>
+                        <Nav.Link href='/personal/recursos_humanos' className='liNav'>Recusrsos Humanos</Nav.Link>
+                        <Nav.Link href='/personal/servicios_escolares' className='liNav'>Servicios Escolares</Nav.Link>
+                        <Nav.Link href='/personal/informatica' className='liNav'>Informática</Nav.Link>
+                    </ul>
+                    <img onClick={showSwalCerrarSesion} src={icon_logout} alt="Logo" className="icon_logout" style={{ width: '8%', height: '40%', marginLeft: '1em', marginRight: '1em' }} />
                 </div>
             </nav>
             <div className="contenido">
@@ -335,7 +347,9 @@ export default function Profesores() {
                         </tr>
                     </thead>
                     <tbody>
+                        {console.log("Imprimir Profesores.map" + profesores)}
                         {
+
                             profesores.map((profesor, index) => {
                                 return (
                                     <tr key={index} onClick={() => llenarDatosCelda(profesor)}>

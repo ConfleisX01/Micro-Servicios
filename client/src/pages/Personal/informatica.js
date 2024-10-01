@@ -76,7 +76,7 @@ export default function Profesores() {
     }
 
     const getProfesores = () => {
-        axios.get('http://localhost:3001/empleado/getAllEmpleadosInformatica')
+        axios.get('https://82465d5v-3001.usw3.devtunnels.ms/empleado/getAllEmpleadosInformatica')
             .then(function (response) {
                 console.log(response);
                 setProfesores(response.data);
@@ -186,7 +186,7 @@ export default function Profesores() {
             contratoEmpleado: contratoEmpleado
         };
 
-        axios.post('http://localhost:3001/empleado/insertEmpleado', {
+        axios.post('https://82465d5v-3001.usw3.devtunnels.ms/empleado/insertEmpleado', {
             data
         }).then(function (response) {
             limpiarFormulario();
@@ -214,7 +214,7 @@ export default function Profesores() {
             contratoEmpleado: contratoEmpleado
         };
 
-        axios.post('http://localhost:3001/empleado/updateEmpleado', {
+        axios.post('https://82465d5v-3001.usw3.devtunnels.ms/empleado/updateEmpleado', {
             data
         }).then(function (response) {
             limpiarFormulario();
@@ -228,7 +228,7 @@ export default function Profesores() {
     }
 
     const deleteProfesor = () => {
-        axios.post('http://localhost:3001/empleado/deleteEmpleado', {
+        axios.post('https://82465d5v-3001.usw3.devtunnels.ms/empleado/deleteEmpleado', {
             numeroEmpleado
         }).then(function (response) {
             showSwalRealizado();
@@ -241,7 +241,7 @@ export default function Profesores() {
     }
 
     const activateProfesor = () => {
-        axios.post('http://localhost:3001/empleado/activateEmpleado', {
+        axios.post('https://82465d5v-3001.usw3.devtunnels.ms/empleado/activateEmpleado', {
             numeroEmpleado
         }).then(function (response) {
             showSwalRealizado();
