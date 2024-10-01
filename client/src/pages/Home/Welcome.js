@@ -24,6 +24,12 @@ export default function Welcome() {
                         text={"Ver los periodos para el registro de nuevos aspirantes"}
                         link={"/registro_aspirantes"}
                     />
+                    <CardInfo
+                        image={"https://cloudfront-us-east-1.images.arcpublishing.com/infobae/D3E5GKMSXFD5FNDWDOL2YDKVLI.jpeg"}
+                        title={"Resultados becas 2024"}
+                        text={"Ver los resultados de las becas"}
+                        link={"/resultados_becas"}
+                    />
                 </div>
             </div>
         </>

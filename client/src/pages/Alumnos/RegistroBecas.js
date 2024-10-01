@@ -11,7 +11,7 @@ export default function RegistroBecas() {
     useEffect(() => {
         const fetchBecas = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/becas');
+                const response = await axios.get('https://mmmv979p-5000.usw3.devtunnels.ms/api/becas');
                 const becasActivas = response.data.filter(beca => beca.estatus === 1);
                 setBecas(becasActivas);
                 setLoading(false);
@@ -23,7 +23,7 @@ export default function RegistroBecas() {
 
         const fetchInfoBecas = async (idUser) => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/info_becas/${idUser}`);
+                const response = await axios.get(`https://mmmv979p-5000.usw3.devtunnels.ms/api/info_becas/${idUser}`);
                 const statusBecas = response.data;
                 setStatusBecas(statusBecas);
             } catch (error) {
@@ -56,7 +56,7 @@ export default function RegistroBecas() {
         console.log(idBeca);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/solicitud_becas', {
+            const response = await axios.post('https://mmmv979p-5000.usw3.devtunnels.ms/api/solicitud_becas', {
                 id_usuario: idUser,
                 id_becas: idBeca
             });
@@ -65,7 +65,7 @@ export default function RegistroBecas() {
             window.alert(`Registro a beca exitoso, tu folio es: ${response.data.folio}`);
 
             // Actualizar el estatus de las solicitudes (GET en lugar de PUT)
-            const updatedStatus = await axios.get(`http://localhost:5000/api/info_becas/${idUser}`);
+            const updatedStatus = await axios.get(`https://mmmv979p-5000.usw3.devtunnels.ms/api/info_becas/${idUser}`);
             setStatusBecas(updatedStatus.data);  // Actualizamos el estado con los nuevos datos
         } catch (error) {
             console.error("Error al registrar la solicitud:", error);

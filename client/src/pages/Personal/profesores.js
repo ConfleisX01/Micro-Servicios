@@ -200,7 +200,7 @@ export default function Profesores() {
             contratoEmpleado: contratoEmpleado
         };
 
-        axios.post('http://localhost:3001/empleado/updateEmpleado', {
+        axios.post('http://192.168.121.75:3001/empleado/updateEmpleado', {
             data
         }).then(function (response) {
             limpiarFormulario();
@@ -214,7 +214,7 @@ export default function Profesores() {
     }
 
     const deleteProfesor = () => {
-        axios.post('http://localhost:3001/empleado/deleteEmpleado', {
+        axios.post('http://192.168.121.75:3001/empleado/deleteEmpleado', {
             numeroEmpleado
         }).then(function (response) {
             showSwalRealizado();
@@ -228,7 +228,7 @@ export default function Profesores() {
 
     const activateProfesor = () => {
         console.log('entra');
-        axios.post('http://localhost:3001/empleado/activateEmpleado', {
+        axios.post('http://192.168.121.75:3001/empleado/activateEmpleado', {
             numeroEmpleado
         }).then(function (response) {
             showSwalRealizado();

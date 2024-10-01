@@ -11,7 +11,7 @@ export default function CatalogoBecas() {
         // Función que carga las becas desde la API
         const fetchBecas = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/becas');  // Petición a la API
+                const response = await axios.get('https://mmmv979p-5000.usw3.devtunnels.ms/api/becas');  // Petición a la API
                 setBecas(response.data);  // Guardamos los datos en el estado
                 setLoading(false);  // Dejamos de mostrar el estado de cargando
             } catch (error) {
@@ -27,7 +27,7 @@ export default function CatalogoBecas() {
         console.log(becaId);
         try {
             const newStatus = currentStatus === 1 ? 0 : 1;  // Cambiar estatus de activo a inactivo o viceversa
-            await axios.put(`http://localhost:5000/api/becas/${becaId}`, { estatus: newStatus });  // Petición PUT a la API para actualizar el estatus
+            await axios.put(`https://mmmv979p-5000.usw3.devtunnels.ms/api/becas/${becaId}`, { estatus: newStatus });  // Petición PUT a la API para actualizar el estatus
             setBecas(prevBecas =>
                 prevBecas.map(beca =>
                     beca.id === becaId ? { ...beca, estatus: newStatus } : beca
