@@ -1,3 +1,42 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Trokers */
+
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura completa de la pantalla */
+    background-color: #f4f4f4; /* Color de fondo para la página */
+}
+
+.datos {
+    background-color: #d9d9d9; /* Color gris para el contenedor */
+    padding: 20px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    text-align: center; /* Centrar texto */
+}
+
+h1 {
+    margin-bottom: 20px; /* Espaciado inferior del título */
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0; /* Espaciado vertical de los inputs */
+    border: 1px solid #ccc; /* Borde de los inputs */
+    border-radius: 4px; /* Bordes redondeados para los inputs */
+    width: 100%; /* Ancho completo */
+}
+
+button {
+    padding: 10px 15px; /* Espaciado del botón */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados para el botón */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    cursor: pointer; /* Cambiar cursor a puntero */
+}
+
+button:hover {
+    background-color: #0056b3; /* Color de fondo en hover */
+}
