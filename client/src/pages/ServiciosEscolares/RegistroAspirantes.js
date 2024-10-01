@@ -9,8 +9,9 @@ export default function RegistroAspirantes() {
     const [serverError, setServerError] = useState(false)
 
     const getAllPeriods = () => {
-        axios.get('http://localhost:3001/servicios_escolares/listPeriods')
+        axios.get('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/listPeriods')
             .then(function (response) {
+                console.log(response.data)
                 if (response.data !== 'undefined') setPeriods(response.data)
             })
             .catch(function (error) {

@@ -6,7 +6,7 @@ export default function ResultadosAdminision() {
     const [applicantList, setApplicantList] = useState([])
 
     const getApplicantsList = () => {
-        axios.get('http://localhost:3001/servicios_escolares/getApplicants')
+        axios.get('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/getApplicants')
             .then(function (response) {
                 setApplicantList(response.data)
             })
