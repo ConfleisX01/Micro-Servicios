@@ -21,7 +21,7 @@ function Login() {
     }
 
     try {
-      const response = await Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms//login", {
+      const response = await Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login", {
         numeroEmpleado: numeroEmpleado
       });
       const userData = response.data;
@@ -63,8 +63,8 @@ function Login() {
 
   const iniciosesionAspirante = async () => {
     try {
-      const response = await Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms//login-aspirante", {
-        correo: numeroEmpleado
+      const response = await Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login-aspirante", {
+        correo: correo
       });
       const userData = response.data;
       const { idUsuario, contrasenia } = userData;
