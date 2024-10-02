@@ -29,7 +29,7 @@ export default function FormularioRegistro() {
     }
 
     const saveApplicant = () => {
-        axios.post('http://localhost:3001/servicios_escolares/saveApplicant', data)
+        axios.post('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/saveApplicant', data)
             .then(function (response) {
                 Swal.fire({
                     icon: 'success',
