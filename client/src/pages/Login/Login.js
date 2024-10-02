@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import '../Login/login.css';
 
-
 function Login() {
   const [numeroEmpleado, setNumeroEmpleado] = useState('');
   const [password, setPassword] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [contraseniaAspirante, setContraseniaAspirante] = useState('');
   const navigate = useNavigate();
 
   const iniciosesion = async () => {
@@ -21,7 +22,7 @@ function Login() {
     }
 
     try {
-      const response = await Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login", {
+      const response = Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login", {
         numeroEmpleado: numeroEmpleado
       });
       const userData = response.data;
@@ -36,15 +37,18 @@ function Login() {
       });
 
       switch (nombreAreaEmpleado) {
-        case "Servicios Escolares":
+        case "SE":
           navigate("servicios-escolares"); 
           break;
-        case "Recursos Humanos":
+        case "RH":
           navigate("/recursos_humanos"); 
           break;
-        case "Profesores":
+        case "P":
           navigate("/profesores");
           break;
+        case "I":
+            navigate("/informatica");
+            break;
         default:
           Swal.fire({
             icon: 'error',
@@ -63,8 +67,9 @@ function Login() {
 
   const iniciosesionAspirante = async () => {
     try {
-      const response = await Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login-aspirante", {
-        correo: correo
+      const response = Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login-aspirante", {
+        correo: correo,
+        contrasenia: contraseniaAspirante
       });
       const userData = response.data;
       const { idUsuario, contrasenia } = userData;
@@ -92,7 +97,7 @@ function Login() {
       <div className="auth_main">  	
         <input type="checkbox" id="auth_chk" aria-hidden="true" />
 
-        {/* Personal login */}
+        
         <div className="auth_personal">
           <form>
             <label htmlFor="auth_chk" aria-hidden="true" className="auth_label">Personal</label>
@@ -120,7 +125,6 @@ function Login() {
           </form>
         </div>
 
-        {/* Aspirante login */}
         <div className="auth_aspirante">
           <form>
             <label htmlFor="auth_chk" aria-hidden="true" className="auth_label">Aspirante</label>
@@ -128,6 +132,8 @@ function Login() {
               type="email"
               name="correo"
               placeholder="Correo"
+              value={correo}
+              onChange={(event) => setCorreo(event.target.value)}
               className="auth_input"
               required
             />
@@ -135,15 +141,17 @@ function Login() {
               type="password"
               name="pswd"
               placeholder="Contraseña"
+              value={contraseniaAspirante}
+              onChange={(event) => setContraseniaAspirante(event.target.value)}
               className="auth_input"
               required
             />
-            <button type="button" onClick={iniciosesionAspirante} className="auth_button">Iniciar sesión</button>
+            <button type="button" onClick={iniciosesionAspirante} className="auth_button">In iciar sesión</button>
           </form>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Login;
