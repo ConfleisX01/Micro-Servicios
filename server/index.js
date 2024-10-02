@@ -1,3 +1,21 @@
+const express = require('express')
+const mysql = require('mysql')
+const cors = require('cors')
+
+const app = express()
+
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}))
+
+app.use(express.json())
+
+const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -97,6 +115,21 @@ app.post('/api/solicitud_becas', (req, res) => {
     });
 });
 
+app.post('/servicios_escolares/updateApplicant', (req, res) => {
+    const applicantId = req.body.applicantId
+    const applicantStatus = req.body.applicantStatus
+
+    connection.query('UPDATE aspirantes_registrados SET estatus_aspirante = ? WHERE id_aspirante = ?', [applicantStatus, applicantId],
+        (err, response) => {
+            if (err) throw err
+            res.send(response)
+        }
+    )
+})
+
+app.listen(3001, () => {
+    console.log("El puerto se abrio en https://localhost:3001")
+})
 app.put('/api/validacion_becas', (req, res) => {
     const { id_beca } = req.body;
     const { estatus } = req.body;
