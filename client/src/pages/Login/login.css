@@ -1,0 +1,104 @@
+/* Trokers  */
+.login-page {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #1c3d26, #2e4a33, #3b5a3e);
+  }
+  
+  .auth_main {
+    width: 350px;
+    height: 500px;
+    background: #2e4a33; /* Verde oscuro */
+    overflow: hidden;
+    background-image: url('https://some-military-camouflage-image-url'); /* Puedes cambiar a una imagen de camuflaje militar */
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 5px 20px 50px #000;
+}
+
+#auth_chk {
+    display: none;
+}
+
+.auth_personal, .auth_aspirante {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.auth_personal label, .auth_aspirante label {
+    color: #f5f5f5; /* Blanco roto */
+    font-size: 2.3em;
+    justify-content: center;
+    display: flex;
+    margin: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+}
+
+.auth_personal input, .auth_aspirante input {
+    width: 60%;
+    height: 40px;
+    background: #a3a09a; /* Beige militar */
+    justify-content: center;
+    display: flex;
+    margin: 20px auto;
+    padding: 12px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.auth_personal button, .auth_aspirante button {
+    width: 60%;
+    height: 40px;
+    margin: 10px auto;
+    justify-content: center;
+    display: block;
+    color: #fff;
+    background: #3b5a3e; /* Verde más oscuro */
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 30px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s ease-in;
+    cursor: pointer;
+}
+
+.auth_personal button:hover, .auth_aspirante button:hover {
+    background: #4a694e; /* Efecto de hover con verde más claro */
+}
+
+.auth_aspirante {
+    height: 460px;
+    background: #eee;
+    border-radius: 60% / 10%;
+    transform: translateY(-180px);
+    transition: 0.8s ease-in-out;
+}
+
+.auth_aspirante label {
+    color: #a52a2a; /* Rojo oscuro para simbolizar la bandera mexicana */
+    transform: scale(0.6);
+}
+
+#auth_chk:checked ~ .auth_aspirante {
+    transform: translateY(-500px);
+}
+
+#auth_chk:checked ~ .auth_aspirante label {
+    transform: scale(1);
+}
+
+#auth_chk:checked ~ .auth_personal label {
+    transform: scale(0.6);
+}
