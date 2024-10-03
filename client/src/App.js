@@ -21,10 +21,11 @@ import Informatica from './pages/Personal/informatica';
 import ResultadosAdminision from './pages/Home/ResultadosAdmision';
 import FormularioRegistro from './pages/ServiciosEscolares/FormularioRegistro';
 import CatalagoBecas from './pages/ServiciosEscolares/catalagoBecas';
-import RegistroBecas from './pages/Alumnos/alumnos';
+import RegistroBecas from './pages/Alumnos/RegistroBecas';
 import ServicesAlumnos from './pages/Alumnos/adminAlumnos';
 import ValidacionBecas from './pages/ServiciosEscolares/validacionBecas';
 import ResultadosBecas from './pages/ServiciosEscolares/resultadosBecas';
+
 
 function App() {
   const router = createBrowserRouter([

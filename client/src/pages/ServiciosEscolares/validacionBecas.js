@@ -12,7 +12,7 @@ export default function () {
         // Función que carga las becas desde la API
         const fetchBecas = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/info_becas');  // Petición a la API
+                const response = await axios.get('https://mmmv979p-5000.usw3.devtunnels.ms/api/info_becas');  // Petición a la API
                 const becasFiltradas = response.data.filter(beca => beca.estatus === 1); // filtrar solo los datos con estatus 1
                 setSoliBecas(becasFiltradas);  // Guardamos los datos en el estado
                 setLoading(false);  // Dejamos de mostrar el estado de cargando
@@ -36,7 +36,7 @@ export default function () {
     const handlerAprober = async (idBeca, Bestatus) => {
         try {
             const comen = comentarios[idBeca] || "";  // Obtener el comentario correspondiente al folio
-            await axios.put(`http://localhost:5000/api/validacion_becas`, {
+            await axios.put(`https://mmmv979p-5000.usw3.devtunnels.ms/api/validacion_becas`, {
                 id_beca: idBeca,
                 estatus: Bestatus,
                 comentarios: comen

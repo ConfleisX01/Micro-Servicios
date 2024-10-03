@@ -10,7 +10,7 @@ export default function Resultados() {
     const [applicantData, setApplicantData] = useState([])
 
     const getApplicantsList = () => {
-        axios.get('http://localhost:3001/servicios_escolares/getApplicants')
+        axios.get('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/getApplicants')
             .then(function (result) {
                 console.log(result.data)
                 setApplicantData(result.data)
@@ -32,7 +32,7 @@ export default function Resultados() {
             applicantId: applicantId
         }
 
-        axios.post('http://localhost:3001/servicios_escolares/updateApplicant', data)
+        axios.post('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/updateApplicant', data)
             .then(function (response) {
                 Swal.fire({
                     icon: 'success',
@@ -59,57 +59,60 @@ export default function Resultados() {
 
     return (
         <>
-            <div className="container-fluid p-2">
-                <Table hover className='table-sm'>
-                    <thead>
-                        <tr>
-                            <th>Nombre del aspirante</th>
-                            <th>Correo</th>
-                            <th>Télefono</th>
-                            <th>Usuario</th>
-                            <th>CURP</th>
-                            <th>Carrera Deseada</th>
-                            <th>Nombre Periodo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            applicantData.map((aspirante, index) => {
-                                return (
-                                    <tr className='align-middle' key={index}>
-                                        <td>{aspirante.nombre_aspirante}</td>
-                                        <td>{aspirante.correo_aspirante}</td>
-                                        <td>{aspirante.telefono_aspirante}</td>
-                                        <td>{aspirante.usuario_aspirante}</td>
-                                        <td>{aspirante.curp_aspirante}</td>
-                                        <td>{aspirante.carrera_aspirante}</td>
-                                        <td className='fw-bold'>{aspirante.nombre_periodo}</td>
-                                        <td>
-                                            {
-                                                aspirante.estatus_aspirante === 'A' ? (
-                                                    <td className='text-success fw-bold'>Aspirante Aceptado</td>
-                                                ) : aspirante.estatus_aspirante === 'R' ? (
-                                                    <td className='text-danger fw-bold'>Aspirante Rechazado</td>
-                                                ) : aspirante.estatus_aspirante === 'P' ? (
-                                                    <div className='d-flex'>
-                                                        <Button className='mx-1' variant='outline-success'
-                                                            onClick={() => updateApplicant('A', aspirante.id_aspirante)}>Aceptar</Button>
-                                                        <Button className='mx-1' variant='outline-danger'
-                                                            onClick={() => updateApplicant('R', aspirante.id_aspirante)}>Rechazar</Button>
-                                                    </div>
-                                                ) : (
-                                                    null
-                                                )
-                                            }
+            <div className='container-fluid p-4'>
+                <h5 className='text-uppercase'>Validación de resultados</h5>
+                <div className="container-fluid shadow-sm border rounded">
+                    <Table hover>
+                        <thead>
+                            <tr>
+                                <th className='text-uppercase'>Nombre del aspirante</th>
+                                <th className='text-uppercase'>Correo</th>
+                                <th className='text-uppercase'>Télefono</th>
+                                <th className='text-uppercase'>Usuario</th>
+                                <th className='text-uppercase'>CURP</th>
+                                <th className='text-uppercase'>Carrera Deseada</th>
+                                <th className='text-uppercase'>Nombre Periodo</th>
+                                <th className='text-uppercase'>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                applicantData.map((aspirante, index) => {
+                                    return (
+                                        <tr className='align-middle' key={index}>
+                                            <td>{aspirante.nombre_aspirante}</td>
+                                            <td>{aspirante.correo_aspirante}</td>
+                                            <td>{aspirante.telefono_aspirante}</td>
+                                            <td>{aspirante.usuario_aspirante}</td>
+                                            <td>{aspirante.curp_aspirante}</td>
+                                            <td>{aspirante.carrera_aspirante}</td>
+                                            <td className='fw-bold'>{aspirante.nombre_periodo}</td>
+                                            <td>
+                                                {
+                                                    aspirante.estatus_aspirante === 'A' ? (
+                                                        <td className='text-success fw-bold text-uppercase'>Aspirante Aceptado</td>
+                                                    ) : aspirante.estatus_aspirante === 'R' ? (
+                                                        <td className='text-muted fw-bold text-uppercase'>Aspirante Rechazado</td>
+                                                    ) : aspirante.estatus_aspirante === 'P' ? (
+                                                        <div className='d-flex'>
+                                                            <Button className='mx-1' variant='outline-success'
+                                                                onClick={() => updateApplicant('A', aspirante.id_aspirante)}>Aceptar</Button>
+                                                            <Button className='mx-1' variant='outline-danger'
+                                                                onClick={() => updateApplicant('R', aspirante.id_aspirante)}>Rechazar</Button>
+                                                        </div>
+                                                    ) : (
+                                                        null
+                                                    )
+                                                }
 
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </Table>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </Table>
+                </div>
             </div>
         </>
     )

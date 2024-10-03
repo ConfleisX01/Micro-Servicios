@@ -25,7 +25,7 @@ export default function Inscripcion() {
     }
 
     const getPeriodsList = () => {
-        axios.get('http://localhost:3001/servicios_escolares/listPeriods')
+        axios.get('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/listPeriods')
             .then(function (response) {
                 setPeriodData(response.data)
             })
@@ -44,7 +44,7 @@ export default function Inscripcion() {
             idPeriod: idPeriod
         }
 
-        axios.post('http://localhost:3001/servicios_escolares/closePeriod', data)
+        axios.post('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/closePeriod', data)
             .then(function (response) {
                 Swal.fire({
                     icon: 'success',
@@ -65,7 +65,7 @@ export default function Inscripcion() {
     }
 
     const savePeriod = () => {
-        axios.post('http://localhost:3001/servicios_escolares/insertPeriod', {
+        axios.post('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/insertPeriod', {
             data
         })
             .then(function (response) {
@@ -88,37 +88,33 @@ export default function Inscripcion() {
     }
 
     return (
-        <div className="p-2">
+        <div className="p-4">
             <div className="mb-3">
-                <h2>Periodos de inscripción</h2>
+                <h5 className="text-uppercase">Periodos de inscripción</h5>
             </div>
             <div className="container-fluid row">
-                <div className="col-md-6">
+                <div className="col-md-5 border rounded shadow-sm p-3">
                     <Form>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Nombre del periodo</Form.Label>
-                            <Form.Control className="mb-4" type="text" placeholder="Ingresa el nombre del periodo" onInput={
-                                (e) => setPeriodName(e.target.value)
-                            } />
-                            <Form.Label>Descripción</Form.Label>
-                            <Form.Control className="mb-4" type="text" placeholder="Ingresa la descaripcion" onInput={
-                                (e) => setPeriodDesc(e.target.value)
-                            } />
-                            <Form.Label>Estatus del periodo</Form.Label>
-                            <Form.Check
-                                type="switch"
-                                id="estatus-switch"
-                                label={periodStatus ? "Activo" : "Inactivo"}
-                                onChange={(e) => setPeriodStatus(e.target.checked)}
-                            />
-                            <div className="container-fluid p-0 my-4">
-                                <Button onClick={savePeriod}>Guardar</Button>
-                            </div>
-                        </Form.Group>
+                        <Form.Label form="periodName">Nombre del periodo</Form.Label>
+                        <Form.Control id="periodName" placeholder="Ingresa el nombre del periodo"
+                            onInput={(e) => setPeriodName(e.target.value)} />
+                        <Form.Label form="periodDesc">Descripción</Form.Label>
+                        <Form.Control id="periodDesc" placeholder="Ingresa la descripción del periodo"
+                            onInput={(e) => setPeriodDesc(e.target.value)} />
+                        <Form.Label form="estatus-switch">Estatus del periodo</Form.Label>
+                        <Form.Check
+                            type="switch"
+                            id="estatus-switch"
+                            label={periodStatus ? "Activo" : "Inactivo"}
+                            onChange={(e) => setPeriodStatus(e.target.checked)}
+                        />
+                        <div className="text-end">
+                            <Button onClick={savePeriod}>Registrar Periodo</Button>
+                        </div>
                     </Form>
                 </div>
-                <div className="col-md-6">
-                    <Table striped hover>
+                <div className="col-md-7">
+                    <Table hover>
                         <thead>
                             <tr>
                                 <th>Nombre del periodo</th>
@@ -135,9 +131,9 @@ export default function Inscripcion() {
                                             <td>{period.nombre_periodo}</td>
                                             <td>{period.descripcion}</td>
                                             <td>{period.estatus ? "Periodo Abierto" : "Periodo Cerrado"}</td>
-                                            <td>{period.estatus ? <button className="btn btn-danger"
+                                            <td>{period.estatus ? <button className="btn btn-danger btn-sm"
                                                 onClick={() => closePeriod(period.id_periodo)}>Cerrar Periodo</button> :
-                                                <button className="btn btn-outline-dark disabled">Sin acciones</button>}</td>
+                                                <button className="btn btn-sm btn-outline-dark disabled ">Sin acciones</button>}</td>
                                         </tr>
                                     )
                                 })

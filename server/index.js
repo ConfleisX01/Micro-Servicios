@@ -4,7 +4,13 @@ const cors = require('cors')
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}))
+
 app.use(express.json())
 
 const connection = mysql.createConnection({
@@ -89,6 +95,15 @@ app.post('/servicios_escolares/updateApplicant', (req, res) => {
     )
 })
 
+app.get('servicios_escolares/getAcceptedApplicants', (req, res) => {
+    connection.query('SELECT * FROM vista_aspirantes_periodos WHERE estatus_aspirante = ?', ['A'],
+        (err, response) => {
+            if (err) throw err
+            res.send(response)
+        }
+    )
+})
+
 app.listen(3001, () => {
-    console.log("El puerto se abrio en http://localhost:3001")
+    console.log("El puerto se abrio en https://localhost:3001")
 })

@@ -11,6 +11,7 @@ export default function RegistroAspirantes() {
     const getAllPeriods = () => {
         axios.get('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/listPeriods')
             .then(function (response) {
+                console.log(response.data)
                 if (response.data !== 'undefined') setPeriods(response.data)
             })
             .catch(function (error) {
