@@ -89,7 +89,7 @@ const getAspirantes = () =>{
               navigate("/personal/profesores");
               break;
             case "I":
-              navigate("/personal/informatica");
+              navigate("/alumnos/regsitro_becas");
               break;
             default:
               Swal.fire({
