@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
@@ -8,11 +8,33 @@ function Login() {
   const [numeroEmpleado, setNumeroEmpleado] = useState('');
   const [password, setPassword] = useState('');
   const [correo, setCorreo] = useState('');
-  const [contraseniaAspirante, setContraseniaAspirante] = useState('');
+  const [curp, setCurp] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() =>{
+    getEmpleados();
+    getAspirantes();
+  },[]);
+
+
+
+  const getEmpleados = () =>{
+    Axios.get('https://82465d5v-3001.usw3.devtunnels.ms/empleado/getAllEmpleados/Completos')
+    .then(function(response){
+        console.log(response);
+    })
+}
+
+const getAspirantes = () =>{
+    Axios.get('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/getApplicants')
+    .then(function(response){
+        console.log(response);
+    })
+}
+
+
   const iniciosesion = async () => {
-    if (numeroEmpleado !== password) {
+    if (numeroEmpleado !== numeroEmpleado) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -38,16 +60,16 @@ function Login() {
 
       switch (nombreAreaEmpleado) {
         case "SE":
-          navigate("servicios-escolares"); 
+          navigate("/personal/servicios-escolares"); 
           break;
         case "RH":
-          navigate("/recursos_humanos"); 
+          navigate("/personal/recursos_humanos"); 
           break;
         case "P":
-          navigate("/profesores");
+          navigate("/personal/profesores");
           break;
         case "I":
-            navigate("/informatica");
+            navigate("/personal/informatica");
             break;
         default:
           Swal.fire({
@@ -69,17 +91,18 @@ function Login() {
     try {
       const response = Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login-aspirante", {
         correo: correo,
-        contrasenia: contraseniaAspirante
+        curp: curp
       });
+
       const userData = response.data;
-      const { idUsuario, contrasenia } = userData;
+      const { idUsuario, correo, curp } = userData;
 
       localStorage.setItem("idUsuario", idUsuario);
 
       Swal.fire({
         icon: 'success',
         title: 'Bienvenido',
-        text: `Bienvenido, su contraseña es: ${contrasenia}.`
+        text: `Bienvenido, su correo es: ${correo}.`
       });
 
       navigate("/alumnos");
@@ -92,6 +115,8 @@ function Login() {
     }
   };
 
+
+  
   return (
     <div className="login-page">
       <div className="auth_main">  	
@@ -141,8 +166,8 @@ function Login() {
               type="password"
               name="pswd"
               placeholder="Contraseña"
-              value={contraseniaAspirante}
-              onChange={(event) => setContraseniaAspirante(event.target.value)}
+              value={curp}
+              onChange={(event) => setCurp(event.target.value)}
               className="auth_input"
               required
             />
