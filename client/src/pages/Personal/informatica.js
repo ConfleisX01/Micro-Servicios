@@ -163,6 +163,16 @@ export default function Profesores() {
         })
     }
 
+    const showSwalCurp = () => {
+        withReactContent(Swal).fire({
+            position: "center",
+            icon: "info",
+            title: "El curp proporcionado ya esta asignado.",
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
+
     const showSwalActualizado = () => {
         withReactContent(Swal).fire({
             position: "center",
@@ -195,7 +205,7 @@ export default function Profesores() {
                 window.location.reload();
             }, 3100);
         }).catch(function (error) {
-            console.log(error);
+            showSwalCurp();
         })
     }
 
@@ -223,7 +233,7 @@ export default function Profesores() {
                 window.location.reload();
             }, 3100);
         }).catch(function (error) {
-            console.log(error);
+            showSwalCurp();
         })
     }
 

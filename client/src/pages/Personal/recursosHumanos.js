@@ -86,6 +86,16 @@ export default function RecursosHumanos() {
             });
     };
 
+    const showSwalCurp = () => {
+        withReactContent(Swal).fire({
+            position: "center",
+            icon: "info",
+            title: "El curp proporcionado ya esta asignado.",
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
+
     const verDetallesProfesorActivo = () => {
         toggleModalOpcionesActivo();
         toggleModalVerDetalles();
@@ -195,7 +205,7 @@ export default function RecursosHumanos() {
                 window.location.reload();
             }, 3100);
         }).catch(function (error) {
-            console.log(error);
+            showSwalCurp();
         })
     }
 
@@ -223,7 +233,7 @@ export default function RecursosHumanos() {
                 window.location.reload();
             }, 3100);
         }).catch(function (error) {
-            console.log(error);
+            showSwalCurp();
         })
     }
 

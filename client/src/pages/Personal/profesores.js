@@ -88,6 +88,16 @@ export default function Profesores() {
         })
     }
 
+    const showSwalCurp = () => {
+        withReactContent(Swal).fire({
+            position: "center",
+            icon: "info",
+            title: "El curp proporcionado ya esta asignado.",
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
+
     const getProfesores = async () => {
         try {
             // Espera a que se resuelva la promesa de axios.get y guarda la respuesta en la variable response
@@ -203,7 +213,7 @@ export default function Profesores() {
                 window.location.reload();
             }, 3100);
         }).catch(function (error) {
-            console.log(error);
+            showSwalCurp();
         })
     }
 
@@ -231,7 +241,7 @@ export default function Profesores() {
                 window.location.reload();
             }, 3100);
         }).catch(function (error) {
-            console.log(error);
+            showSwalCurp();
         })
     }
 

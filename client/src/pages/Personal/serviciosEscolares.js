@@ -126,6 +126,16 @@ export default function ServiciosEscolares() {
         })
     }
 
+    const showSwalCurp = () => {
+        withReactContent(Swal).fire({
+            position: "center",
+            icon: "info",
+            title: "El curp proporcionado ya esta asignado.",
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
+
     const showSwalCerrarSesion = () => {
         withReactContent(Swal).fire({
             title: `¿Estas seguro de cerrar sesión?`,
@@ -194,7 +204,7 @@ export default function ServiciosEscolares() {
                 window.location.reload();
             }, 3100);
         }).catch(function (error) {
-            console.log(error);
+            showSwalCurp();
         })
     }
 
@@ -222,7 +232,7 @@ export default function ServiciosEscolares() {
                 window.location.reload();
             }, 3100);
         }).catch(function (error) {
-            console.log(error);
+            showSwalCurp();
         })
     }
 
