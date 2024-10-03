@@ -16,7 +16,7 @@ import flecha from '../Personal/img/icon_flecha.png';
 import iconRegistrar from '../Personal/img/icon_registrar.png';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 import withReactContent from "sweetalert2-react-content";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';

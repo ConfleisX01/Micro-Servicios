@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Axios from "axios";
+import axios, { all } from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import '../Login/login.css';
@@ -8,7 +8,9 @@ function Login() {
   const [numeroEmpleado, setNumeroEmpleado] = useState('');
   const [password, setPassword] = useState('');
   const [correo, setCorreo] = useState('');
-  const [curp, setCurp] = useState('');
+  const [contraseniaAspirante, setContraseniaAspirante] = useState('');
+  const [datosEmpleados, setDatosEmpleados] = useState([]);
+  const [allData, setAllData] = useState([]); // Convertir allData en estado
   const navigate = useNavigate();
 
   useEffect(() =>{
@@ -19,65 +21,90 @@ function Login() {
 
 
   const getEmpleados = () =>{
-    Axios.get('https://82465d5v-3001.usw3.devtunnels.ms/empleado/getAllEmpleados/Completos')
+    axios.get('https://82465d5v-3001.usw3.devtunnels.ms/empleado/getAllEmpleados/Completos')
     .then(function(response){
         console.log(response);
     })
 }
 
 const getAspirantes = () =>{
-    Axios.get('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/getApplicants')
+    axios.get('https://qdffwxc1-3001.usw3.devtunnels.ms/servicios_escolares/getApplicants')
     .then(function(response){
         console.log(response);
     })
 }
 
 
-  const iniciosesion = async () => {
-    if (numeroEmpleado !== numeroEmpleado) {
+  useEffect(() => {
+    axios.get('https://82465d5v-3001.usw3.devtunnels.ms/empleado/getAllEmpleados/Completos')
+      .then(function (response) {
+        const empleadosData = response.data;
+        setAllData(prevData => [...prevData, { listEmpleados: empleadosData }]); // Agregar los empleados a allData
+        console.log(allData);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []); // allData ahora es estado y se manejará correctamente
+
+  const iniciosesion = () => {
+    if (numeroEmpleado !== password) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Error al ingressar usuario o contraseña'
+        text: 'Error, Las credenciales no son correctas'
       });
       return;
     }
 
     try {
-      const response = Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login", {
-        numeroEmpleado: numeroEmpleado
-      });
-      const userData = response.data;
-      const { idUsuario, nombreAreaEmpleado } = userData;
+      const numeroEmpleados = { numeroEmpleado }; // Crear objeto con numeroEmpleado
 
-      localStorage.setItem("idUsuario", idUsuario);
+      // Agregar numeroEmpleado a allData antes de hacer la petición
+      const updatedData = [...allData, numeroEmpleados]; // Combina allData con numeroEmpleado
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Bienvenido',
-        text: `Bienvenido, ${nombreAreaEmpleado}. Su contraseña es: ${numeroEmpleado}.`
-      });
+      console.log(updatedData); // Verifica que el array esté correctamente formado
 
-      switch (nombreAreaEmpleado) {
-        case "SE":
-          navigate("/personal/servicios-escolares"); 
-          break;
-        case "RH":
-          navigate("/personal/recursos_humanos"); 
-          break;
-        case "P":
-          navigate("/personal/profesores");
-          break;
-        case "I":
-            navigate("/personal/informatica");
-            break;
-        default:
+      axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login", updatedData)
+        .then(function (response) {
+          const userData = response.data;
+          const { idUsuario, nombreAreaEmpleado } = userData;
+
+          localStorage.setItem("idUsuario", idUsuario);
+
           Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Rol no conocido.'
+            icon: 'success',
+            title: 'Bienvenido',
+            text: `Bienvenido, ${nombreAreaEmpleado}.`
           });
-      }
+
+          switch (nombreAreaEmpleado) {
+            case "SE":
+              navigate("/personal/servicios-escolares");
+              break;
+            case "RH":
+              navigate("/personal/recursos_humanos");
+              break;
+            case "P":
+              navigate("/personal/profesores");
+              break;
+            case "I":
+              navigate("/personal/informatica");
+              break;
+            default:
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Rol no conocido.'
+              });
+          }
+        })
+        .catch(function (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Error de servidor"
+          });
+        });
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -87,42 +114,42 @@ const getAspirantes = () =>{
     }
   };
 
-  const iniciosesionAspirante = async () => {
-    try {
-      const response = Axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login-aspirante", {
-        correo: correo,
-        curp: curp
-      });
+//   const iniciosesionAspirante = async () => {
+//     try {
+//       const response = axios.post("https://m4xj94bw-3002.usw3.devtunnels.ms/login-aspirante", {
+//         correo: correo,
+//         curp: curp
+//       });
 
-      const userData = response.data;
-      const { idUsuario, correo, curp } = userData;
+//       const userData = response.data;
+//       const { idUsuario, correo, curp } = userData;
 
-      localStorage.setItem("idUsuario", idUsuario);
+//       localStorage.setItem("idUsuario", idUsuario);
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Bienvenido',
-        text: `Bienvenido, su correo es: ${correo}.`
-      });
+//       Swal.fire({
+//         icon: 'success',
+//         title: 'Bienvenido',
+//         text: `Bienvenido, su correo es: ${correo}.`
+//       });
 
-      navigate("/alumnos");
-    } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Error al iniciar sesión.'
-      });
-    }
-  };
+//       navigate("/alumnos");
+//     } catch (error) {
+//       Swal.fire({
+//         icon: 'error',
+//         title: 'Error',
+//         text: 'Error al iniciar sesión.'
+//       });
+//     }
+//   };
 
 
   
   return (
     <div className="login-page">
-      <div className="auth_main">  	
+      <div className="auth_main">
         <input type="checkbox" id="auth_chk" aria-hidden="true" />
 
-        
+
         <div className="auth_personal">
           <form>
             <label htmlFor="auth_chk" aria-hidden="true" className="auth_label">Personal</label>
@@ -150,7 +177,7 @@ const getAspirantes = () =>{
           </form>
         </div>
 
-        <div className="auth_aspirante">
+        {/* <div className="auth_aspirante">
           <form>
             <label htmlFor="auth_chk" aria-hidden="true" className="auth_label">Aspirante</label>
             <input
@@ -173,7 +200,7 @@ const getAspirantes = () =>{
             />
             <button type="button" onClick={iniciosesionAspirante} className="auth_button">In iciar sesión</button>
           </form>
-        </div>
+        </div> */}
       </div>
     </div>
   );

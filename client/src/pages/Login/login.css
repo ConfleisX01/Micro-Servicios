@@ -13,9 +13,9 @@
   .auth_main {
     width: 350px;
     height: 500px;
-    background: #2e4a33; /* Verde oscuro */
+    background: linear-gradient(to bottom, #B5CAB8, #78866B); /* Verde oscuro */
     overflow: hidden;
-    background-image: url('https://some-military-camouflage-image-url'); /* Puedes cambiar a una imagen de camuflaje militar */
+    background-image: url('https://some-military-camouflage-image-url'); 
     background-position: center;
     background-size: cover;
     border-radius: 10px;
