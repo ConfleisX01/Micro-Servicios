@@ -33,7 +33,7 @@ export default function RegistroBecas() {
 
 
         // Obtener el idUser del Local Storage
-        const idUser = localStorage.getItem('idUser'); // Asegúrate de que este key exista en el Local Storage
+        const idUser = localStorage.getItem('idUsuario'); // Asegúrate de que este key exista en el Local Storage
 
         fetchBecas();
 
