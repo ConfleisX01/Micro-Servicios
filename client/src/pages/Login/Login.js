@@ -180,12 +180,3 @@ const getAspirantes = () =>{
 }
 
 export default Login;
-=======
-export default function Login() {
-    return (
-        <>
-            <h1>Login</h1>
-        </>
-    )
-}
->>>>>>> bee3bc30f5809ae5f562491700304e256eddc335
