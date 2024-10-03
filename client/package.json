@@ -15,6 +15,10 @@
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "sweetalert2": "^11.14.1",
+<<<<<<< HEAD
+=======
+    "sweetalert2-react-content": "^5.0.7",
+>>>>>>> bee3bc30f5809ae5f562491700304e256eddc335
     "web-vitals": "^2.1.4"
   },
   "scripts": {
